@@ -8,10 +8,10 @@
 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        pass
+        return haystack.find(needle) if needle else 0
 
 
-my_haystack = "hello"
-my_needle = "ll"
+my_haystack = "fghfg"
+my_needle = "q"
 my_sol = Solution()
 print(my_sol.strStr(my_haystack, my_needle))
