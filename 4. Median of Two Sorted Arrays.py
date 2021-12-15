@@ -3,4 +3,9 @@
 # The overall run time complexity should be O(log (m+n)).
 class Solution:
     def findMedianSortedArrays(self, nums1, nums2) -> float:
-        pass
+        nums1.extend(nums2)
+        nums1.sort()
+        lengh = len(nums1)
+        median = float(
+            nums1[int((lengh - 1) / 2)] if lengh % 2 else (nums1[int(lengh / 2 - 1)] + nums1[int(lengh / 2)]) / 2)
+        return median
