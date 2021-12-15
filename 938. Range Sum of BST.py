@@ -15,10 +15,21 @@ class Solution:
         recur_this, recur_left, recur_right = 0, 0, 0
         if root is not None:
             recur_this = root.val if low <= root.val <= high else 0
-            recur_left = self.rangeSumBST(root.left, low, high) if low <= self.rangeSumBST(root.left, low,
-                                                                                           high) <= high else 0
-            recur_right = self.rangeSumBST(root.right, low, high) if low <= self.rangeSumBST(root.right, low,
-                                                                                             high) <= high else 0
+            recur_left = self.rangeSumBST(root.left, low, high)
+            recur_right = self.rangeSumBST(root.right, low, high)
         answer = recur_this + recur_left + recur_right
 
         return answer
+
+lrl = TreeNode(6)
+lll = TreeNode(1)
+rr = TreeNode(18)
+rl = TreeNode(13)
+lr = TreeNode(7, lrl, None)
+ll = TreeNode(3, lll, None)
+r = TreeNode(15, rl, rr)
+l = TreeNode(5, ll, lr)
+
+root1 = TreeNode(10, l, r)
+my_sol = Solution()
+print(my_sol.rangeSumBST(root1, 6, 10))
