@@ -4,31 +4,37 @@
 
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
-        # The common formula of such palindrome: BxOyA, where xOyA == s, and x - is the 'root' and always x[0] == s[0],
-        # y == x[::-1] - mirrored part of the root of initial string, O - is any char including '', B == A[::-1],
+        # The common formula of such palindrome: BxOyA, where xOyA == s, and x - is the 'root',
+        # y == x[::-1] - mirrored part of the root of initial string, O - is a sliding pointer iterating through
+        # [s[0], '', s[1], ''....], B == A[::-1],
         # A - is a remaining part
-        # For any string s, A at least is A == s[1:]
-        A = s[1:]
-        O = ''
-        x = s[0]
-        y = ''
-        for idx in range(1, len(s) // 2):
-            # x[0] == s[0], x[-1] == s[idx], idx is the right bound of root x
+        # For any string s, at least x == '', O == s[0], y == '', A == s[1:]
+        answer = s[::-1] + s
+        for idx in range(0, len(s) // 2 + 1):                           # FIXME: check ranges
+            # idx is the sliding pointer of O
+
+            # The first case: O points to an char
+            O = s[idx]
             x = s[:idx]
-            y1 = s[idx:idx+len(x)]                                  #FIXME: check ranges
-            y2 = s[idx+1:idx+1+len(x)]                              #FIXME: check ranges
+            y1 = s[idx+1:idx+1+len(x)]
             if x == y1[::-1]:
                 y = y1
-                A = s[idx + len(x):]                                # O remain empty ''
-            elif x == y2[::-1]:
+                A = s[idx + 1 + len(x):]
+                answer = A[::-1] + x + O + y + A if len(A[::-1] + x + O + y + A) < len(answer) else answer
+
+            # The second case: O points to '' between chars
+            O = ''
+            x = s[:idx+1]
+            y2 = s[idx + 1:idx + 1 + len(x)]
+            if x == y2[::-1]:
                 y = y2
                 A = s[idx + 1 + len(x):]
-                O = s[idx]
+                answer = A[::-1] + x + O + y + A if len(A[::-1] + x + O + y + A) < len(answer) else answer
 
-        return A[::-1] + x + O + y + A
+        return answer
 
 
 my_sol = Solution()
 
-s = 'aaa'
+s = 'a'
 print(my_sol.shortestPalindrome(s))
