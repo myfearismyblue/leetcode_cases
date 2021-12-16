@@ -10,7 +10,8 @@ class Solution:
         # For any string s, A at least is A == s[1:]
         A = s[1:]
         O = ''
-
+        x = s[0]
+        y = ''
         for idx in range(1, len(s) // 2):
             # x[0] == s[0], x[-1] == s[idx], idx is the right bound of root x
             x = s[:idx]
@@ -29,5 +30,5 @@ class Solution:
 
 my_sol = Solution()
 
-s = 'aacd'
+s = 'aaa'
 print(my_sol.shortestPalindrome(s))
