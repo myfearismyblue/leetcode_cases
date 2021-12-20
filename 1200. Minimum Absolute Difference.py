@@ -8,7 +8,18 @@
 
 class Solution:
     def minimumAbsDifference(self, arr):
-        pass
+        temp_arr = arr
+        assert len(temp_arr) >= 2
+        answer = []
+        current_lowest_diff = float("+inf")
+        for idx in range(len(temp_arr)-1):
+            current_diff = abs(temp_arr[idx] - temp_arr[idx + 1])
+            if current_diff < current_lowest_diff:
+                current_lowest_diff = current_diff
+                answer = [[temp_arr[idx], temp_arr[idx + 1]]]
+            elif current_diff == current_lowest_diff:
+                answer.append([temp_arr[idx], temp_arr[idx + 1]])
+        return answer
 
 
 my_sol = Solution()
