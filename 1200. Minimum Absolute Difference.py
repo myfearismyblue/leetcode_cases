@@ -8,7 +8,7 @@
 
 class Solution:
     def minimumAbsDifference(self, arr):
-        temp_arr = arr
+        temp_arr = sorted(arr)
         assert len(temp_arr) >= 2
         answer = []
         current_lowest_diff = float("+inf")
@@ -23,5 +23,5 @@ class Solution:
 
 
 my_sol = Solution()
-arr = [4, 2, 1, 3]
+arr = [3,8,-10,23,19,-4,-14,27]
 print(my_sol.minimumAbsDifference(arr))
