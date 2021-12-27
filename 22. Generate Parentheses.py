@@ -6,8 +6,7 @@
 
 class Solution:
     def generateParenthesis(self, n: int):
-        class ValidString:
-
+        class ParenthesisStringStack:
             def __init__(self, string):
                 self.string = string
                 self.stack_level, _ = self._get_stack_level()
@@ -30,54 +29,54 @@ class Solution:
                     return True
                 return False
 
-            def append_left(self):
-                new_string = ValidString(self.string)
+            def join_left_parth(self):
+                """Creates a new object ParenthesisStringStack with '(' joined at the end"""
+                new_string = ParenthesisStringStack(self.string)
                 new_string.string = ''.join([new_string.string, '('])
-                new_string.stack_level, _ = new_string._get_stack_level()    # FIXME: to check if it's ok to increase
-                new_string.valid = new_string.is_valid()                     # stack_level only w/o calculating
+                new_string.stack_level, _ = new_string._get_stack_level()
+                new_string.valid = new_string.is_valid()
                 return new_string
 
-            def append_right(self):
-                new_string = ValidString(self.string)
+            def join_right_parth(self):
+                """Creates a new object ParenthesisStringStack with ')' joined at the end"""
+                new_string = ParenthesisStringStack(self.string)
                 new_string.string = ''.join([new_string.string, ')'])
-                new_string.stack_level, _ = new_string._get_stack_level()   # FIXME: to check if it's ok to decrease
-                new_string.valid = new_string.is_valid()                    # stack_level only w/o calculating
+                new_string.stack_level, _ = new_string._get_stack_level()
+                new_string.valid = new_string.is_valid()
                 return new_string
 
         def create_parenthesis_pool(depth):
-            left_pars = ['(' for i in range(depth)]
-            right_pars = [')' for i in range(depth)]
-            return left_pars, right_pars
+            return ['('] * depth, [')'] * depth
 
-        left_pars, right_pars = create_parenthesis_pool(n)
+        left_parth, right_parth = create_parenthesis_pool(n)
 
-        def generate_substrings(previous_substring, left_pars, right_pars):
+        def generate_substrings(previous_substring, left_parth, right_parth):
+            """Generates valid string recurrently"""
             assert previous_substring.stack_level >= 0
-            if not left_pars and not right_pars and previous_substring.valid:
+            if not left_parth and not right_parth and previous_substring.valid:
                 nonlocal answer
-                return answer.append(previous_substring)
+                return answer.append(previous_substring.string)
 
-            if not previous_substring.stack_level and left_pars:
-                assert right_pars
-                new_substring = previous_substring.append_left()
-                generate_substrings(new_substring, left_pars[:-1], right_pars)
-
+            if not previous_substring.stack_level and left_parth:
+                assert right_parth
+                new_substring = previous_substring.join_left_parth()
+                generate_substrings(new_substring, left_parth[:-1], right_parth)
             elif previous_substring.stack_level:
-                if left_pars:
-                    new_substring = previous_substring.append_left()
-                    generate_substrings(new_substring, left_pars[:-1], right_pars)
-                if right_pars:
-                    new_substring = previous_substring.append_right()
-                    generate_substrings(new_substring, left_pars, right_pars[:-1])
+                if left_parth:
+                    new_substring = previous_substring.join_left_parth()
+                    generate_substrings(new_substring, left_parth[:-1], right_parth)
+                if right_parth:
+                    new_substring = previous_substring.join_right_parth()
+                    generate_substrings(new_substring, left_parth, right_parth[:-1])
 
         answer = []
 
-        generate_substrings(ValidString(''), left_pars, right_pars)
+        generate_substrings(ParenthesisStringStack(''), left_parth, right_parth)
 
         return answer
 
 
 my_sol = Solution()
-n = 3
+n = 4
 
-[print(item.string) for item in my_sol.generateParenthesis(n)]
+print(my_sol.generateParenthesis(n))
