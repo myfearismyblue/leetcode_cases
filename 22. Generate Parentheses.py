@@ -23,8 +23,8 @@ class Solution:
                     always_been_valid = always_been_valid and (stack_level >= 0)
                 return stack_level, always_been_valid
 
-
             def is_valid(self):
+                """Returns if the current state is valid like '()()(())' """
                 level, always_been_valid = self._get_stack_level()
                 if not level and always_been_valid:
                     return True
@@ -32,13 +32,13 @@ class Solution:
 
             def append_left(self):
                 self.string = ''.join([self.string, '('])
-                self.stack_level, _ = self._get_stack_level()
-                self.valid = self.is_valid()
+                self.stack_level, _ = self._get_stack_level()               # FIXME: to check if it's ok to increase
+                self.valid = self.is_valid()                                # stack_level only w/o calculating
 
             def append_right(self):
                 self.string = ''.join([self.string, ')'])
-                self.stack_level, _ = self._get_stack_level()
-                self.valid = self.is_valid()
+                self.stack_level, _ = self._get_stack_level()               # FIXME: to check if it's ok to decrease
+                self.valid = self.is_valid()                                # stack_level only w/o calculating
 
         def create_parenthesis_pool(depth):
             left_pars = ['(' for i in range(depth)]
