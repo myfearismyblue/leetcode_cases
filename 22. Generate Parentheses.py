@@ -31,14 +31,18 @@ class Solution:
                 return False
 
             def append_left(self):
-                self.string = ''.join([self.string, '('])
-                self.stack_level, _ = self._get_stack_level()               # FIXME: to check if it's ok to increase
-                self.valid = self.is_valid()                                # stack_level only w/o calculating
+                new_string = ValidString(self.string)
+                new_string.string = ''.join([new_string.string, '('])
+                new_string.stack_level, _ = new_string._get_stack_level()    # FIXME: to check if it's ok to increase
+                new_string.valid = new_string.is_valid()                     # stack_level only w/o calculating
+                return new_string
 
             def append_right(self):
-                self.string = ''.join([self.string, ')'])
-                self.stack_level, _ = self._get_stack_level()               # FIXME: to check if it's ok to decrease
-                self.valid = self.is_valid()                                # stack_level only w/o calculating
+                new_string = ValidString(self.string)
+                new_string.string = ''.join([new_string.string, ')'])
+                new_string.stack_level, _ = new_string._get_stack_level()   # FIXME: to check if it's ok to decrease
+                new_string.valid = new_string.is_valid()                    # stack_level only w/o calculating
+                return new_string
 
         def create_parenthesis_pool(depth):
             left_pars = ['(' for i in range(depth)]
@@ -47,17 +51,33 @@ class Solution:
 
         left_pars, right_pars = create_parenthesis_pool(n)
 
+        def generate_substrings(previous_substring, left_pars, right_pars):
+            assert previous_substring.stack_level >= 0
+            if not left_pars and not right_pars and previous_substring.valid:
+                nonlocal answer
+                return answer.append(previous_substring)
 
+            if not previous_substring.stack_level and left_pars:
+                assert right_pars
+                new_substring = previous_substring.append_left()
+                generate_substrings(new_substring, left_pars[:-1], right_pars)
 
-        my_string = ValidString('(()')
-        print(my_string.append_right())
+            elif previous_substring.stack_level:
+                if left_pars:
+                    new_substring = previous_substring.append_left()
+                    generate_substrings(new_substring, left_pars[:-1], right_pars)
+                if right_pars:
+                    new_substring = previous_substring.append_right()
+                    generate_substrings(new_substring, left_pars, right_pars[:-1])
 
         answer = []
+
+        generate_substrings(ValidString(''), left_pars, right_pars)
 
         return answer
 
 
 my_sol = Solution()
 n = 3
-my_sol.generateParenthesis(n)
-print()
+
+[print(item.string) for item in my_sol.generateParenthesis(n)]
