@@ -10,6 +10,7 @@ class Solution:
             try:
                 letter_set = set(strs[0][idx])
                 for word in strs:
+                    assert word.islower()
                     letter_set.add(word[idx])
                 if len(letter_set) == 1:
                     answer.append(word[idx])

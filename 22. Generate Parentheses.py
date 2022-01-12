@@ -78,5 +78,4 @@ class Solution:
 
 my_sol = Solution()
 n = 4
-
 print(my_sol.generateParenthesis(n))
