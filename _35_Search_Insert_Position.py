@@ -14,10 +14,28 @@
 #
 # Input: nums = [1,3,5,6], target = 7
 # Output: 4
+# Constraints:
+#
+# 1 <= nums.length <= 104
+# -104 <= nums[i] <= 104
+# nums contains distinct values sorted in ascending order.
+# -104 <= target <= 104
 
 from typing import List
 
 
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
-        pass
+        left_idx = 0
+        right_idx = len(nums) - 1
+        while right_idx >= left_idx:
+            guess_idx = (right_idx + left_idx) // 2
+            if target == nums[guess_idx]:
+                return guess_idx
+            elif target < nums[guess_idx]:
+                right_idx = guess_idx - 1
+            else:
+                left_idx = guess_idx + 1
+
+        return left_idx
+
