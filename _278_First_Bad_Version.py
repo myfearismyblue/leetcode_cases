@@ -29,11 +29,15 @@
 # The isBadVersion API is already defined for you.
 # def isBadVersion(version: int) -> bool:
 
-firstBad = 5
+
+def isBadVersion_wrapper(first_bad_via_API):
+    def wrapper(version):
+        return True if version >= first_bad_via_API else False
+
+    return wrapper
 
 
-def isBadVersion(version: int) -> bool:
-    return True if version >= firstBad else False
+isBadVersion = isBadVersion_wrapper(35)
 
 
 class Solution:
@@ -46,6 +50,4 @@ class Solution:
                 right_idx = guess_idx - 1
             else:
                 left_idx = guess_idx + 1
-
-
-
+        return left_idx

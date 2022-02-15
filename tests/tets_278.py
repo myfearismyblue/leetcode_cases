@@ -19,14 +19,14 @@
 # The isBadVersion API is already defined for you.
 # def isBadVersion(version: int) -> bool:
 
-from _278_First_Bad_Version import Solution
+from _278_First_Bad_Version import Solution, isBadVersion_wrapper
 import pytest
 
 my_sol = Solution()
 
 
-@pytest.mark.parametrize("n, bad, expected", [(5, 4, 4),
-                                              (1, 1, 1),
-                                              ])
+@pytest.mark.parametrize("n, expected", [(50, 35),
+                                         # (1, 1),
+                                         ])
 def test_firstBadVersion(n, expected):
     assert my_sol.firstBadVersion(n) == expected
