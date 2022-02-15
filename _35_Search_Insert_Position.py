@@ -38,4 +38,3 @@ class Solution:
                 left_idx = guess_idx + 1
 
         return left_idx
-
