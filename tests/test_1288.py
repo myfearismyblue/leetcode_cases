@@ -10,9 +10,18 @@
 
 # 1 <= intervals.length <= 1000
 # intervals[i].length == 2
-# 0 <= li <= ri <= 105
+# 0 <= li <= ri <= 10^5
 # All the given intervals are unique.
 
 from _1288_Remove_Covered_Intervals import Solution
 import pytest
 
+my_sol = Solution()
+
+
+@pytest.mark.parametrize("intervals, expected", [([[1, 4], [3, 6], [2, 8]], 2),
+                                                 ([[1, 4], [2, 3]], 1),
+                                                 ([[0, 0]], 1),
+                                                 ])
+def test_removeCoveredIntervals(intervals, expected):
+    assert my_sol.removeCoveredIntervals(intervals) == expected
