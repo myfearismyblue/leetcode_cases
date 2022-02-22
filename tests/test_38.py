@@ -22,6 +22,7 @@ from _38_Count_and_Say import Solution
 
 my_sol = Solution()
 
+
 @pytest.mark.parametrize('array, expected', [('111', '31'),
                                              ('1', '11'),
                                              ('112233', '212223'),
@@ -30,9 +31,18 @@ my_sol = Solution()
 def test_sequence_conversion(array: str, expected: str):
     assert my_sol.sequence_conversion(array) == expected
 
-@pytest.mark.parametrize('array, expected_exception',[('', AssertionError),
-                                                      ('1a', AssertionError),
-                                                      ])
+
+@pytest.mark.parametrize('array, expected_exception', [('', AssertionError),
+                                                       ('1a', AssertionError),
+                                                       ])
 def test_sequence_conversion_exceptions(array: str, expected_exception):
     with pytest.raises(expected_exception):
         my_sol.sequence_conversion(array)
+
+
+@pytest.mark.parametrize('n, expected', [(1, '1'),
+                                         (2, '11'),
+                                         (3, '21'),
+                                         (4, '1211')])
+def test_countAndSay(n: int, expected: str):
+    assert my_sol.countAndSay(n) == expected

@@ -33,7 +33,12 @@
 
 class Solution:
     def countAndSay(self, n: int) -> str:
-        ...
+        assert 1 <= n <= 30
+        if n == 1:
+            converted = '1'
+        else:
+            converted = self.sequence_conversion(self.countAndSay(n - 1))
+        return converted
 
     def sequence_conversion(self, array: str) -> str:
         assert array, 'a string has to be not empty'
@@ -48,4 +53,8 @@ class Solution:
             converted += str(current_counter) + str(current_digit)
             idx += current_counter
         return converted
+
+
+my_sol = Solution()
+[print(my_sol.countAndSay(n)) for n in range(1, 10)]
 
