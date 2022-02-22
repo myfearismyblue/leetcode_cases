@@ -30,5 +30,22 @@
 #
 # 1 <= n <= 30
 
+
 class Solution:
     def countAndSay(self, n: int) -> str:
+        ...
+
+    def sequence_conversion(self, array: str) -> str:
+        assert array, 'a string has to be not empty'
+        assert array.isdigit(), 'only digits are allowed'
+        converted = ''
+        idx = 0
+        while idx < len(array):
+            current_digit = array[idx]
+            current_counter = 1
+            while idx + current_counter < len(array) and array[idx] == array[idx + current_counter]:
+                current_counter += 1
+            converted += str(current_counter) + str(current_digit)
+            idx += current_counter
+        return converted
+
