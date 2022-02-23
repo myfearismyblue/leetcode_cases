@@ -30,8 +30,21 @@
 #
 # 1 <= n <= 30
 
+def memoize(f):
+    cache = {}
+
+    def decorate(*args):
+        if args in cache:
+            return cache[args]
+        else:
+            cache[args] = f(*args)
+            return cache[args]
+
+    return decorate
+
 
 class Solution:
+    @memoize
     def countAndSay(self, n: int) -> str:
         assert 1 <= n <= 30
         if n == 1:
@@ -53,8 +66,3 @@ class Solution:
             converted += str(current_counter) + str(current_digit)
             idx += current_counter
         return converted
-
-
-my_sol = Solution()
-[print(my_sol.countAndSay(n)) for n in range(1, 10)]
-
