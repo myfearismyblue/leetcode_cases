@@ -25,7 +25,7 @@ class Solution:
                         left_boundary = jdx
                         break
             right_boundary = len(heights) - 1
-            for jdx, right in zip(range(idx+1), heights[idx+1:]):             # search for right boundary
+            for jdx, right in enumerate(heights[idx+1:], start=idx+1):             # search for right boundary
                 if right < height:
                     right_boundary = jdx - 1
                     break
@@ -33,4 +33,5 @@ class Solution:
             largest = max(largest, current_area)
         return largest
 
-
+my_sol = Solution()
+print(my_sol.largestRectangleArea([2,1,5,6,2,3]))
