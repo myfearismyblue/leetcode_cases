@@ -32,6 +32,3 @@ class Solution:
             current_area = (right_boundary - left_boundary + 1) * height
             largest = max(largest, current_area)
         return largest
-
-my_sol = Solution()
-print(my_sol.largestRectangleArea([2,1,5,6,2,3]))
