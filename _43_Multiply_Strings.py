@@ -44,3 +44,4 @@ class Solution:
     def multiply(self, num1: str, num2: str) -> str:
         return self.int_to_string((self.number_list_to_int(self.string_to_digit_list(num1)) *
                                    self.number_list_to_int(self.string_to_digit_list(num2))))
+
