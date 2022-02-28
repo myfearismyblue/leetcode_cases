@@ -13,6 +13,24 @@
 # 0 <= heights[i] <= 10^4
 from typing import List
 
+
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
-        ...
+        largest = 0
+        for idx, height in enumerate(heights):
+            left_boundary = 0
+            if idx:
+                for jdx, left in zip(range(idx, 0, -1), heights[idx - 1::-1]): # search for left boundary
+                    if left < height:
+                        left_boundary = jdx
+                        break
+            right_boundary = len(heights) - 1
+            for jdx, right in zip(range(idx+1), heights[idx+1:]):             # search for right boundary
+                if right < height:
+                    right_boundary = jdx - 1
+                    break
+            current_area = (right_boundary - left_boundary + 1) * height
+            largest = max(largest, current_area)
+        return largest
+
+
